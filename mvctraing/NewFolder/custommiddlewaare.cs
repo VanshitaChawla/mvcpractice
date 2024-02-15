@@ -1,4 +1,4 @@
-﻿namespace mvctraing.NewFolder
+﻿/*namespace mvctraing.NewFolder
 {
     public class custommiddlewaare
     { 
@@ -14,3 +14,4 @@
         }
     }
 }
+*/

@@ -18,7 +18,7 @@ namespace mvctraing.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Category()
         {
             return View();
         }
