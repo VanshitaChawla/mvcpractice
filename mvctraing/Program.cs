@@ -1,7 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using mvctraing.Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File("Log / log.txt",rollingInterval:RollingInterval.Day)
+    .CreateLogger();
+//builder.Host.UseSerilog();
+builder.Logging.AddSerilog();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
