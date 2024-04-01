@@ -7,7 +7,7 @@ trigger:
 - none
 
 pool:
-  name: 'default'
+ name: 'default'
 
 variables:
   solution: '**/*.sln'
@@ -30,7 +30,7 @@ steps:
     
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    pathtoPublish: '$(build.artifactStagingDirectory)'
     artifactName: 'drop'
     publishLocation: 'Container'
 
