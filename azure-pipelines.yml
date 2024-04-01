@@ -6,9 +6,10 @@
 trigger:
 - none
 
-pool:
-  vmImage: 'windows-latest'
 
+
+pool:
+  name: 'default'
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
