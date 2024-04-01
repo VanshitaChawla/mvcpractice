@@ -54,5 +54,5 @@ steps:
     deployToSlotOrASE: true
     resourceGroupName: 'rg-test-01'
     slotName: 'production'
-    package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'  # Specify the exact path to the zip file
+    searchPattern: '$(System.ArtifactsDirectory)/drop/*.zip'  # Specify the search pattern to locate the zip file
     deploymentMethod: 'auto'
