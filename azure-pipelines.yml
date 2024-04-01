@@ -48,8 +48,8 @@ steps:
 
 - task: AzureRmWebAppDeployment@4
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'new_connection'
     appType: 'webApp'
     WebAppName: 'DoctorManagementSystem'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.ArtifactsDirectory)/drop/WebApp.zip' 
+    deploymentMethod: 'auto'
