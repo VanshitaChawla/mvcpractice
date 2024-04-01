@@ -1,3 +1,5 @@
+
+
 # ASP.NET Core (.NET Framework)
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
@@ -24,7 +26,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     
@@ -46,13 +48,14 @@ steps:
     artifactName: 'drop'
     downloadPath: '$(System.ArtifactsDirectory)'
 
-- task: AzureWebApp@1
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'new_connection'
     appType: 'webApp'
-    appName: 'DoctorManagementSystem'
+    WebAppName: 'DoctorManagementSystem'
+    packageForLinux: '$(System.ArtifactsDirectory)/drop/**/*.zip'
+    package: '$(System.ArtifactsDirectory)/drop/**/*.zip'
     deployToSlotOrASE: true
-    resourceGroupName: 'rg-test-01'
-    slotName: 'production'
-    package: '$(System.ArtifactsDirectory)/drop/*.zip'
-    deploymentMethod: 'auto'
+    ResourceGroupName: 'rg-test-01'
+    SlotName: 'production'
