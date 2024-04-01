@@ -34,9 +34,9 @@ steps:
     configuration: '$(buildConfiguration)'
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Pay-As-You-Go(706c7625-2e5d-424b-b004-7f0b38f15310)'
+    azureSubscription: 'new_connection'
     appType: 'webApp'
-    appName: 'mvc'
+    appName: 'DoctorManagementSystem'
     deployToSlotOrASE: true
     resourceGroupName: 'rg-test-01'
     slotName: 'production'
