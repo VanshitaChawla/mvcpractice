@@ -52,7 +52,7 @@ steps:
     appType: 'webApp'
     appName: 'DoctorManagementSystem'
     deployToSlotOrASE: true
-    resourceGroupName: 'app_grp3'
+    resourceGroupName: 'rg-test-01'
     slotName: 'production'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'  # Specify the exact path to the zip file
     deploymentMethod: 'auto'
