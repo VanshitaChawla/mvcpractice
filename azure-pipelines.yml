@@ -61,4 +61,4 @@ steps:
     appType: 'webApp'
     WebAppName: 'DoctorManagementSystem'
    
-    packageForLinux: '''$(System.ArtifactsDirectory)/drop/WebApp.zip'
+    packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
