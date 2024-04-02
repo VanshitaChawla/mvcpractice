@@ -56,10 +56,9 @@ steps:
 
 - task: AzureRmWebAppDeployment@4
   inputs:
-    ConnectionType: 'AzureRM'
+  
     azureSubscription: 'new_connection'
     appType: 'webApp'
     WebAppName: 'DoctorManagementSystem'
-    deployToSlotOrASE: true
-    SlotName: 'production'
+   
     packageForLinux: '''$(System.ArtifactsDirectory)/drop/WebApp.zip'
