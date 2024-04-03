@@ -44,12 +44,21 @@ stages:
   - job: Deploy_using_Terraform
     displayName: 'Deploy using Terraform'
     steps:
-    - script: |
-        wget https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip
-        unzip terraform_1.0.9_linux_amd64.zip
-        sudo mv terraform /usr/local/bin/
-      displayName: 'Install Terraform'
-      continueOnError: true  # This ensures that the pipeline continues even if Terraform is already installed or the installation fails
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Download Terraform zip file
+          Invoke-WebRequest -Uri 'https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_windows_amd64.zip' -OutFile 'terraform.zip'
+
+          # Extract Terraform executable
+          Expand-Archive -Path 'terraform.zip' -DestinationPath '$(Agent.ToolsDirectory)\terraform'
+
+          # Add Terraform directory to PATH
+          $env:Path += ";$(Agent.ToolsDirectory)\terraform"
+
+          # Verify Terraform installation
+          terraform --version
 
     - task: TerraformTaskV4@4
       inputs:
@@ -74,6 +83,7 @@ stages:
         provider: 'azurerm'
         command: 'apply'
         environmentServiceNameAzureRM: 'new_connection'
+
 
 # - task: DownloadBuildArtifacts@0
 #   inputs:
