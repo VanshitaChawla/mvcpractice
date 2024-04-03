@@ -52,19 +52,26 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'  # Adjust the path here
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'
+          backendServiceArm: 'new_connection'
+          backendAzureRmResourceGroupName: 'app_grp3'
+          backendAzureRmStorageAccountName: 'sttestingaccount0001'
+          backendAzureRmContainerName: 'containertfstate'
+          backendAzureRmKey: 'Folder/Terraform.tfstate'
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'  # Adjust the path here
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'
+          environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform' 
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'
+          environmentServiceNameAzureRM: 'new_connection'
 # - task: DownloadBuildArtifacts@0
 #   inputs:
 #     buildType: 'current'
