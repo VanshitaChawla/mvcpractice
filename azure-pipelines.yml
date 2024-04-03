@@ -44,21 +44,9 @@ stages:
   - job: Deploy_using_Terraform
     displayName: 'Deploy using Terraform'
     steps:
-    - task: PowerShell@2
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       inputs:
-        targetType: 'inline'
-        script: |
-          # Download Terraform zip file
-          Invoke-WebRequest -Uri 'https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_windows_amd64.zip' -OutFile 'terraform.zip'
-
-          # Extract Terraform executable
-          Expand-Archive -Path 'terraform.zip' -DestinationPath '$(Agent.ToolsDirectory)\terraform'
-
-          # Add Terraform directory to PATH
-          $env:Path += ";$(Agent.ToolsDirectory)\terraform"
-
-          # Verify Terraform installation
-          terraform --version
+        terraformVersion: 'latest'
 
     - task: TerraformTaskV4@4
       inputs:
@@ -83,6 +71,7 @@ stages:
         provider: 'azurerm'
         command: 'apply'
         environmentServiceNameAzureRM: 'new_connection'
+
 
 
 # - task: DownloadBuildArtifacts@0
