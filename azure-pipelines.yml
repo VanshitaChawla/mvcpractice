@@ -52,7 +52,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          workingDirectory: '$(Build.SourcesDirectory)/newrepo2/mvc/Teraform'
           backendServiceArm: 'new_connection'
           backendAzureRmResourceGroupName: 'app_grp3'
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
@@ -63,21 +63,21 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          workingDirectory: '$(Build.SourcesDirectory)/newrepo2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          workingDirectory: '$(Build.SourcesDirectory)/newrepo2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          workingDirectory: '$(Build.SourcesDirectory)/newrepo2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
 
 
