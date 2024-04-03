@@ -58,8 +58,7 @@ stages:
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
           backendAzureRmContainerName: 'containertfstate'
           backendAzureRmKey: 'Folder/terraform.tfstate'
-          terraformVersion: 'specifyPath'
-          specifyPath: 'C:\terraform_1.7.5_windows_amd64'
+          specifyPath: 'C:\terraform_1.7.5_windows_amd64'  # Specify the path here
 
       - task: TerraformTaskV4@4
         inputs:
@@ -73,7 +72,6 @@ stages:
           provider: 'azurerm'
           command: 'apply'
           environmentServiceNameAzureRM: 'new_connection'
-
 
 
 
