@@ -52,7 +52,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/mv/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/mvc/teraform'
           backendServiceArm: 'new_connection'
           backendAzureRmResourceGroupName: 'app_grp3'
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
@@ -63,7 +63,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/mv/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/mvc/teraform'
           environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
