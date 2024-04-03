@@ -39,12 +39,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: DownloadBuildArtifacts@0
-  inputs:
-    buildType: 'current'
-    downloadType: 'single'
-    artifactName: 'drop'
-    downloadPath: '$(System.ArtifactsDirectory)'
+# - task: DownloadBuildArtifacts@0
+#   inputs:
+#     buildType: 'current'
+#     downloadType: 'single'
+#     artifactName: 'drop'
+#     downloadPath: '$(System.ArtifactsDirectory)'
 
 # - task: AzureRmWebAppDeployment@4
 #   inputs:
