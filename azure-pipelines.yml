@@ -47,6 +47,7 @@ stages:
       - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
         inputs:
           terraformVersion: 'latest'
+          specifyPath: 'C:\terraform_1.7.5_windows_amd64'
 
       - task: TerraformTaskV4@4
         inputs:
@@ -58,7 +59,7 @@ stages:
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
           backendAzureRmContainerName: 'containertfstate'
           backendAzureRmKey: 'Folder/terraform.tfstate'
-          specifyPath: 'C:\terraform_1.7.5_windows_amd64'  # Specify the path here
+         
 
       - task: TerraformTaskV4@4
         inputs:
