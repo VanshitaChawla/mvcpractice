@@ -38,6 +38,7 @@ stages:
         inputs:
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
+
 - stage: Terraform_Deployment
   jobs:
   - job: Deploy_using_Terraform
@@ -52,23 +53,27 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
           backendServiceArm: 'new_connection'
           backendAzureRmResourceGroupName: 'app_grp3'
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
           backendAzureRmContainerName: 'containertfstate'
           backendAzureRmKey: 'Folder/Terraform.tfstate'
 
-      -  task: TerraformTaskV4@4
-         inputs:
-           provider: 'azurerm'
-           command: 'plan'
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
+
 # - task: DownloadBuildArtifacts@0
 #   inputs:
 #     buildType: 'current'
