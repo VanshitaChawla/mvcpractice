@@ -27,7 +27,7 @@ stages:
         msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
-        
+
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(build.artifactStagingDirectory)'
@@ -44,6 +44,13 @@ stages:
   - job: Deploy_using_Terraform
     displayName: 'Deploy using Terraform'
     steps:
+    - script: |
+        wget https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip
+        unzip terraform_1.0.9_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+      displayName: 'Install Terraform'
+      continueOnError: true  # This ensures that the pipeline continues even if Terraform is already installed or the installation fails
+
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'
