@@ -38,7 +38,6 @@ stages:
         inputs:
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-
 - stage: Terraform_Deployment
   jobs:
   - job: Deploy_using_Terraform
@@ -47,35 +46,25 @@ stages:
       - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
         inputs:
           terraformVersion: 'latest'
-          specifyPath: 'C:\terraform_1.7.5_windows_amd64'
+          specifyPath: 'C:\terraform_1.7.5_windows_amd64'  # Adjust the path here if needed
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: 'Repos/mvc/mvc/Teraform'
-          backendServiceArm: 'new_connection'
-          backendAzureRmResourceGroupName: 'app_grp3'
-          backendAzureRmStorageAccountName: 'sttestingaccount0001'
-          backendAzureRmContainerName: 'containertfstate'
-          backendAzureRmKey: 'Folder/terraform.tfstate'
-         
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'  # Adjust the path here
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: 'Repos/mvc/mvc/Teraform'
-          environmentServiceNameAzureRM: 'new_connection'
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform'  # Adjust the path here
 
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          environmentServiceNameAzureRM: 'new_connection'
-
-
-
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/terraform' 
 # - task: DownloadBuildArtifacts@0
 #   inputs:
 #     buildType: 'current'
