@@ -44,9 +44,9 @@ stages:
   - job: Deploy_using_Terraform
     displayName: 'Deploy using Terraform'
     steps:
-      - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      - task: TerraformInstaller@1
         inputs:
-          terraformVersion: 'latest'
+         terraformVersion: 'latest'
           #specifyPath: 'C:\terraform_1.7.5_windows_amd64'  # Adjust the path here if needed
 
       - task: TerraformTaskV4@4
