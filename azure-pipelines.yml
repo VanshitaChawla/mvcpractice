@@ -58,6 +58,8 @@ stages:
           backendAzureRmStorageAccountName: 'sttestingaccount0001'
           backendAzureRmContainerName: 'containertfstate'
           backendAzureRmKey: 'Folder/terraform.tfstate'
+          terraformVersion: 'specifyPath'
+          specifyPath: 'C:\terraform_1.7.5_windows_amd64'
 
       - task: TerraformTaskV4@4
         inputs:
