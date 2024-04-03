@@ -15,62 +15,63 @@ stages:
   - job: Build
     displayName: 'Build and Test'
     steps:
-    - task: NuGetToolInstaller@1
+      - task: NuGetToolInstaller@1
 
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '$(solution)'
 
-    - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+      - task: VSBuild@1
+        inputs:
+          solution: '$(solution)'
+          msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+          platform: '$(buildPlatform)'
+          configuration: '$(buildConfiguration)'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: '$(build.artifactStagingDirectory)'
-        artifactName: 'drop'
-        publishLocation: 'Container'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(build.artifactStagingDirectory)'
+          artifactName: 'drop'
+          publishLocation: 'Container'
 
-    - task: VSTest@2
-      inputs:
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+      - task: VSTest@2
+        inputs:
+          platform: '$(buildPlatform)'
+          configuration: '$(buildConfiguration)'
 
 - stage: Terraform_Deployment
   jobs:
   - job: Deploy_using_Terraform
     displayName: 'Deploy using Terraform'
     steps:
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
+      - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+        inputs:
+          terraformVersion: 'latest'
 
-    - task: TerraformTaskV4@4
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Teraform'
-        backendServiceArm: 'new_connection'
-        backendAzureRmResourceGroupName: 'app_grp3'
-        backendAzureRmStorageAccountName: 'sttestingaccount0001'
-        backendAzureRmContainerName: 'containertfstate'
-        backendAzureRmKey: 'Folder/terraform.tfstate'
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/mv/terraform'
+          backendServiceArm: 'new_connection'
+          backendAzureRmResourceGroupName: 'app_grp3'
+          backendAzureRmStorageAccountName: 'sttestingaccount0001'
+          backendAzureRmContainerName: 'containertfstate'
+          backendAzureRmKey: 'Folder/terraform.tfstate'
 
-    - task: TerraformTaskV4@4
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        workingDirectory:  '$(System.DefaultWorkingDirectory)/Teraform'
-        environmentServiceNameAzureRM: 'new_connection'
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/mv/terraform'
+          environmentServiceNameAzureRM: 'new_connection'
 
-    - task: TerraformTaskV4@4
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        environmentServiceNameAzureRM: 'new_connection'
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          environmentServiceNameAzureRM: 'new_connection'
+
 
 
 
