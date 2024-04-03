@@ -62,7 +62,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/mvc/teraform'
           environmentServiceNameAzureRM: 'new_connection'
 
       - task: TerraformTaskV4@4
