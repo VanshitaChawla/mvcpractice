@@ -38,7 +38,6 @@ stages:
         inputs:
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-
 - stage: Terraform_Deployment
   jobs:
   - job: Deploy_using_Terraform
@@ -46,8 +45,8 @@ stages:
     steps:
       - task: TerraformInstaller@1
         inputs:
-         terraformVersion: 'latest'
-          #specifyPath: 'C:\terraform_1.7.5_windows_amd64'  # Adjust the path here if needed
+          terraformVersion: 'latest'
+          # Specify the path if needed
 
       - task: TerraformTaskV4@4
         inputs:
@@ -63,6 +62,13 @@ stages:
       - task: TerraformTaskV4@4
         inputs:
           provider: 'azurerm'
+          command: 'validate'
+          workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
+          environmentServiceNameAzureRM: 'new_connection'
+
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
           command: 'plan'
           workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
@@ -73,6 +79,7 @@ stages:
           command: 'apply'
           workingDirectory: '$(Build.SourcesDirectory)/newrep2/mvc/Teraform'
           environmentServiceNameAzureRM: 'new_connection'
+
 
 # - task: DownloadBuildArtifacts@0
 #   inputs:
