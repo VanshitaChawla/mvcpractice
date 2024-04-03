@@ -54,9 +54,9 @@ steps:
 #     package: '$(System.ArtifactsDirectory)/drop/WebApp.zip' 
 #     deploymentMethod: 'auto'
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    azureSubscription: 'new_connection'
-    appType: 'webApp'
-    WebAppName: 'DoctorManagementSystem'   
-    packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     azureSubscription: 'new_connection'
+#     appType: 'webApp'
+#     WebAppName: 'DoctorManagementSystem'   
+#     packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
